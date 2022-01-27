@@ -5,6 +5,8 @@ import reportWebVitals from './reportWebVitals';
 import './style/global.scss';
 import './style/customStyle.scss';
 import 'bootstrap/dist/js/bootstrap.bundle';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 
 
 ReactDOM.render(

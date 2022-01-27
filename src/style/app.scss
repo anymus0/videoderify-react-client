@@ -1,5 +1,7 @@
+@import './colors';
+
 .app {
-  color: white;
-  background-color: #0c1933;
+  color: $white;
+  background-color: $primary-color;
   min-height: 100vh;
 }
