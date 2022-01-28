@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import "./style/app.scss";
 
@@ -23,7 +23,6 @@ function App() {
           </div>
         </div>
       </div>
-      <Outlet />
     </div>
   );
 }

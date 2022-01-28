@@ -8,7 +8,7 @@ interface mediaFile {
   filename: string;
 }
 
-interface Series {
+export interface Series {
   _id: string,
   name: string;
   description: string;
@@ -20,4 +20,9 @@ interface Series {
 export interface SeriesResponse {
   status: ResponseStatus;
   result: null | Series;
+}
+
+export interface AllSeriesResponse {
+  status: ResponseStatus;
+  result: null | Series[];
 }
