@@ -14,7 +14,8 @@ const LibraryPage = () => {
   // fetch all serieses
   const fetchAllSerieses = async () => {
     try {
-      const fetchUrl = `http://localhost:3001/series/all`;
+      const apiURL = process.env.REACT_APP_API;
+      const fetchUrl = `${apiURL}/series/all`;
       const res = await fetch(fetchUrl);
       const seriesResObj = (await res.json()) as Promise<AllSeriesResponse>;
       return seriesResObj;
