@@ -1,9 +1,10 @@
-import React from "react";
-import "./style/app.scss";
-import { Routes, Route, Link, Outlet } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import "./style/app.scss";
 
 import HomePage from "./pages/HomePage";
+import LibraryPage from "./pages/LibraryPage";
+import UploadPage from "./pages/UploadPage";
 
 function App() {
   return (
@@ -13,9 +14,16 @@ function App() {
           <div className="col-auto col-md-3 col-xl-1 px-sm-2 px-0 bg-dark">
             <Navbar />
           </div>
-          <div className="col py-3">Content area... outlet comes here</div>
+          <div className="col py-3">
+              <Routes>
+                <Route path="/" element={<HomePage />}></Route>
+                <Route path="/library" element={<LibraryPage />}></Route>
+                <Route path="/upload" element={<UploadPage />}></Route>
+              </Routes>
+          </div>
         </div>
       </div>
+      <Outlet />
     </div>
   );
 }

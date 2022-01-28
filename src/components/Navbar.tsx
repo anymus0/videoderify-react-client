@@ -8,19 +8,19 @@ const Navbar = () => {
         id="menu"
       >
         <li className="nav-item p-4">
-          <a href="#" className="nav-link align-middle px-0">
+          <Link to="/">
             <i className="fs-2 bi-house"></i>
-          </a>
+          </Link>
         </li>
         <li className="nav-item p-4">
-          <a href="#" className="nav-link align-middle px-0">
+          <Link to="/library">
             <i className="fs-2 bi bi-caret-right-square-fill"></i>
-          </a>
+          </Link>
         </li>
         <li className="nav-item p-4">
-          <a href="#" className="nav-link align-middle px-0">
+          <Link to="/upload">
             <i className="fs-2 bi bi-cloud-upload"></i>
-          </a>
+          </Link>
         </li>
       </ul>
       <hr />
