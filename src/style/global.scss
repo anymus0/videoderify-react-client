@@ -1,3 +1,61 @@
+@import './colors';
+
 body {
   margin: 0;
+}
+
+.primary-dark-bg {
+  background-color: $primary-color !important;
+}
+
+.secondary-dark-bg {
+  background-color: $secondary-color !important;
+}
+
+.primary-dark-text {
+  color: $primary-color !important;
+}
+
+.secondary-dark-text {
+  columns: $secondary-color !important;
+}
+
+.primary-light-bg {
+  background-color: $primary-light-color !important;
+}
+
+.secondary-light-bg {
+  background-color: $secondary-light-color !important;
+}
+
+.primary-light-text {
+  color: $primary-light-color !important;
+}
+
+.secondary-light-text {
+  color: $secondary-light-color !important;
+}
+
+.larger-text {
+  font-size: larger !important;
+}
+
+.primary-light-neon {
+  box-shadow: 0 0 24px $primary-light-color !important;
+  border: solid 4px $primary-light-color !important;
+}
+
+.secondary-light-neon {
+  box-shadow: 0 0 24px $secondary-light-color !important;
+  border: solid 4px $secondary-light-color !important;
+}
+
+.primary-dark-neon {
+  box-shadow: 0 0 24px $primary-color !important;
+  border: solid 4px $primary-color !important;
+}
+
+.secondary-dark-neon {
+  box-shadow: 0 0 24px $secondary-color !important;
+  border: solid 4px $secondary-color !important;
 }

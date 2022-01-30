@@ -1,4 +1,8 @@
+@import './colors';
 // Override default bootstrap styles
+
+// card
+$card-bg: $secondary-color;
 
 // import bootstrap
 @import '~bootstrap/scss/bootstrap.scss';
