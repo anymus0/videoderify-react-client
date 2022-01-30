@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-
 import { Series } from "./../models/SeriesModel";
 import "./../style/SeriesCard.scss";
+import './../style/Neon.scss';
+
 
 const SeriesCard = (props: { series: Series }) => {
   return (

@@ -1,0 +1,40 @@
+@import "./colors";
+
+.primary-light-neon {
+  box-shadow: 0 0 24px $primary-light-color !important;
+  border: solid 4px $primary-light-color !important;
+}
+
+.secondary-light-neon {
+  box-shadow: 0 0 24px $secondary-light-color !important;
+  border: solid 4px $secondary-light-color !important;
+}
+
+.primary-dark-neon {
+  box-shadow: 0 0 24px $primary-color !important;
+  border: solid 4px $primary-color !important;
+}
+
+.secondary-dark-neon {
+  box-shadow: 0 0 24px $secondary-color !important;
+  border: solid 4px $secondary-color !important;
+}
+
+.glow {
+  font-size: 4rem;
+  color: $white;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px $primary-light-color,
+      0 0 40px $primary-light-color, 0 0 50px $primary-light-color,
+      0 0 60px $primary-light-color, 0 0 70px $primary-light-color;
+  }
+
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #1e3fc2, 0 0 40px #1e3fc2,
+      0 0 50px #1e3fc2, 0 0 60px #1e3fc2, 0 0 70px #1e3fc2, 0 0 80px #1e3fc2;
+  }
+}
