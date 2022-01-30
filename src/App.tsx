@@ -5,6 +5,8 @@ import "./style/app.scss";
 import HomePage from "./pages/HomePage";
 import LibraryPage from "./pages/LibraryPage";
 import UploadPage from "./pages/UploadPage";
+import EpisodesPage from './pages/EpisodesPage';
+
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
                 <Route path="/" element={<HomePage />}></Route>
                 <Route path="/library" element={<LibraryPage />}></Route>
                 <Route path="/upload" element={<UploadPage />}></Route>
+                <Route path="/episodes/:seriesId" element={<EpisodesPage />}></Route>
               </Routes>
           </div>
         </div>

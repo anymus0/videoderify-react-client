@@ -8,7 +8,6 @@ const LibraryPage = () => {
     AllSeriesResponse,
     Dispatch<SetStateAction<AllSeriesResponse>>
   ] = useState(null);
-
   const [isError, setIsError] = useState(false);
 
   // fetch all serieses
