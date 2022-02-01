@@ -1,8 +1,30 @@
-@import './colors';
+@import "./colors";
+@import "~bootstrap/scss/bootstrap.scss";
+
 // Override default bootstrap styles
 
 // card
 $card-bg: $secondary-color;
 
-// import bootstrap
-@import '~bootstrap/scss/bootstrap.scss';
+// button
+.btn {
+  opacity: 1;
+  transition: color 0.25s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+    opacity 0.15s ease-in-out;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+// form-control
+.form-control {
+  background-color: $primary-color;
+  border: 0px;
+  color: $primary-light-color;
+  &:focus {
+    color: $primary-light-color;
+    background-color: $primary-color;
+  }
+}

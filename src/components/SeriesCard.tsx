@@ -9,7 +9,7 @@ const SeriesCard = (props: { series: Series }) => {
     <div>
       <div className="card mb-3 primary-light-neon">
         <img src={props.series.thumb} className="card-img-top" alt={`${props.series.name}__thumb`} />
-        <div className="card-body">
+        <div className="card-body secondary-dark-bg">
           <div className="container">
             <div className="row">
               <div className="col">
