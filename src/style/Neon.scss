@@ -26,6 +26,12 @@
   animation: glow 1s ease-in-out infinite alternate;
 }
 
+@media only screen and (max-width: 700px) {
+  .glow {
+    font-size: 1.8rem;
+  }
+}
+
 @keyframes glow {
   from {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px $primary-light-color,

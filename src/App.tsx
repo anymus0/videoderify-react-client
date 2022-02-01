@@ -11,12 +11,11 @@ import EpisodesPage from './pages/EpisodesPage';
 function App() {
   return (
     <div className="app">
+      <Navbar />
       <div className="container-fluid">
-        <div className="row flex-nowrap">
-          <div className="col-auto col-md-3 col-xl-1 px-sm-2 px-0 bg-dark">
-            <Navbar />
-          </div>
+        <div className="row">
           <div className="col py-3">
+          
               <Routes>
                 <Route path="/" element={<HomePage />}></Route>
                 <Route path="/library" element={<LibraryPage />}></Route>
