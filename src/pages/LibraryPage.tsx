@@ -1,6 +1,8 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { AllSeriesResponse } from "./../models/SeriesModel";
 import SeriesCard from "./../components/SeriesCard";
+import './../style/LibraryPage.scss';
+
 
 const LibraryPage = () => {
   // state variables
@@ -72,10 +74,10 @@ const LibraryPage = () => {
       return emptyTemplate;
     } else {
       return (
-        <div className="container-fluid">
+        <div className="container-fluid seriesContainer">
           <div className="row">
             {allSeriesRes.result.map((series, index) => (
-              <div className="col" key={index}>
+              <div className="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 mb-5 p-xxl-3 p-md-2 p-sm-4 p-5" key={index}>
                 <SeriesCard series={series} />
               </div>
             ))}
@@ -85,7 +87,7 @@ const LibraryPage = () => {
     }
   };
 
-  return <div className="h-100">{renderLibrary()}</div>;
+  return <div className="h-100 mt-3">{renderLibrary()}</div>;
 };
 
 export default LibraryPage;
