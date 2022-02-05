@@ -3,7 +3,6 @@ import { SeriesResponse } from "./../models/SeriesModel";
 import UploadSeriesForm from "./../components/UploadSeriesForm";
 import Status from "./../components/Status";
 
-
 const UploadPage = () => {
   // state variables
   const [isUploading, setIsUploading] = useState(false);
@@ -27,16 +26,16 @@ const UploadPage = () => {
 
   const fetchUploadSeries = async (formData: FormData) => {
     try {
-      const requestOptions = {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-        },
-        body: formData,
-      };
       const uploadSeriesResponse = await fetch(
         `${process.env.REACT_APP_API}/series/upload`,
-        requestOptions
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+          },
+          credentials: "include",
+          body: formData,
+        }
       );
       const uploadSeriesResponseObj =
         (await uploadSeriesResponse.json()) as Promise<SeriesResponse>;
@@ -94,10 +93,10 @@ const UploadPage = () => {
   };
 
   return (
-    <div className="container-fluid h-100">
+    <div className="container-fluid h-100 mt-3">
       <div className="row h-100">
         <div className="col-12 d-flex justify-content-center align-content-center">
-          <div className="row w-100">
+          <div className="row w-50">
             <div className="col-12 uploadForm">
               <UploadSeriesForm
                 seriesName={seriesName}
@@ -111,7 +110,7 @@ const UploadPage = () => {
                 uploadHandler={uploadHandler}
               />
             </div>
-            <div className="col-12 d-flex justify-content-center">
+            <div className="col-12 text-center">
               <Status isLoading={isUploading} isError={isError} />
             </div>
           </div>
