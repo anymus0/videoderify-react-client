@@ -1,73 +1,32 @@
 import { Link } from "react-router-dom";
+import './../style/navbar.scss';
+
 
 const Navbar = () => {
   return (
-    <div>
-      <div
-        className="offcanvas offcanvas-start w-25 secondary-dark-bg"
-        tabIndex={-1}
-        id="offcanvas"
-        data-bs-keyboard="false"
-        data-bs-backdrop="false"
-      >
-        <div className="offcanvas-header">
-          <h6 className="offcanvas-title d-none d-sm-block" id="offcanvas">
-            Menu
-          </h6>
-          <button
-            type="button"
-            className="btn-close text-reset"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div className="offcanvas-body px-0">
-          <ul
-            className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start"
-            id="menu"
-          >
+    <nav className="navbar navbar-expand navbar-dark secondary-dark-bg p-4">
+      <div className="container-fluid">
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
             <li className="nav-item">
-              <div className="nav-link">
-                <Link to="/">
-                  <i
-                    className="fs-1 bi-house"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvas"
-                  ></i>
-                </Link>
-              </div>
+              <Link to="/">
+                <span className="bi bi-house fs-1 secondary-light-text navIcon"></span>
+              </Link>
             </li>
             <li className="nav-item">
-              <div className="nav-link">
-                <Link to="/library">
-                  <i
-                    className="fs-1 bi-house"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvas"
-                  ></i>
-                </Link>
-              </div>
+              <Link to="/library">
+                <span className="bi bi-play-btn fs-1 secondary-light-text navIcon"></span>
+              </Link>
             </li>
             <li className="nav-item">
-              <div className="nav-link">
-                <Link to="/upload">
-                  <i
-                    className="fs-1 bi-house"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvas"
-                  ></i>
-                </Link>
-              </div>
+              <Link to="/upload">
+                <span className="bi bi-arrow-bar-up fs-1 secondary-light-text navIcon"></span>
+              </Link>
             </li>
           </ul>
         </div>
       </div>
-      <i
-        className="bi bi-list fs-4 primary-light-text p-2"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvas"
-      ></i>
-    </div>
+    </nav>
   );
 };
 

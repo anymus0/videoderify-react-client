@@ -1,0 +1,12 @@
+@import './colors';
+
+.navIcon {
+  padding: 1rem;
+  margin-right: 1rem;
+  transition-timing-function: linear;
+  transition-duration: 0.15s;
+}
+.navIcon:hover {
+  background-color: $primary-color;
+  border-radius: 15px;
+}
