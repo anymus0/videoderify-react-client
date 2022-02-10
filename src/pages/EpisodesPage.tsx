@@ -10,10 +10,8 @@ const EpisodesPage = () => {
     SeriesResponse,
     Dispatch<SetStateAction<SeriesResponse>>
   ] = useState(null);
-  const [selectedEpisode, setSelectedEpisode]: [
-    string,
-    Dispatch<SetStateAction<string>>
-  ] = useState("");
+  const [selectedEpisode, setSelectedEpisode] = useState("");
+  const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0);
   const [isError, setIsError] = useState(false);
 
   const fetchSeriesById = async () => {
@@ -67,9 +65,10 @@ const EpisodesPage = () => {
             {seriesRes.result.mediaFiles.map((mediaFile, index) => (
               <div className="col-1 episodeSwitchContainer" key={index}>
                 <button
-                  className="btn primary-light-bg text-white shadow-lg"
+                  className={`btn primary-light-bg text-white shadow-lg ${(currentEpisodeIndex === index) ? 'secondary-light-bg': ''}`}
                   onClick={() => {
                     selectEpisodeHandler(index);
+                    setCurrentEpisodeIndex(index);
                   }}
                 >
                   {index + 1}
