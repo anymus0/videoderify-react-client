@@ -63,7 +63,7 @@ const EpisodesPage = () => {
           </div>
           <div className="row mt-3 pb-3 p-1">
             {seriesRes.result.mediaFiles.map((mediaFile, index) => (
-              <div className="col-1 episodeSwitchContainer" key={index}>
+              <div className="col-1 episodeSwitchContainer mb-3" key={index}>
                 <button
                   className={`btn primary-light-bg text-white shadow-lg ${(currentEpisodeIndex === index) ? 'secondary-light-bg': ''}`}
                   onClick={() => {
