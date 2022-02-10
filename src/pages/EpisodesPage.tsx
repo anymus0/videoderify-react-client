@@ -2,6 +2,7 @@ import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { useParams } from "react-router-dom";
 import { SeriesResponse } from "./../models/SeriesModel";
 import VideoPlayer from "./../components/VideoPlayer";
+import "./../style/EpisodesPage.scss";
 
 const EpisodesPage = () => {
   const { seriesId } = useParams();
@@ -10,9 +11,9 @@ const EpisodesPage = () => {
     Dispatch<SetStateAction<SeriesResponse>>
   ] = useState(null);
   const [selectedEpisode, setSelectedEpisode]: [
-    number,
-    Dispatch<SetStateAction<number>>
-  ] = useState(0);
+    string,
+    Dispatch<SetStateAction<string>>
+  ] = useState("");
   const [isError, setIsError] = useState(false);
 
   const fetchSeriesById = async () => {
@@ -33,11 +34,12 @@ const EpisodesPage = () => {
   useEffect(() => {
     fetchSeriesById().then((seriesRes) => {
       setSeriesRes(seriesRes);
+      setSelectedEpisode(seriesRes.result.mediaFiles[0].filename);
     });
   }, []);
 
   const selectEpisodeHandler = (episode: number) => {
-    setSelectedEpisode(episode);
+    setSelectedEpisode(seriesRes.result.mediaFiles[episode].filename);
   };
 
   return (
@@ -57,15 +59,15 @@ const EpisodesPage = () => {
           <div className="row">
             <div className="col">
               <VideoPlayer
-                fileName={seriesRes.result.mediaFiles[selectedEpisode].filename}
+                fileName={selectedEpisode}
               ></VideoPlayer>
             </div>
           </div>
-          <div className="row mt-5">
+          <div className="row mt-3 pb-3 p-1">
             {seriesRes.result.mediaFiles.map((mediaFile, index) => (
-              <div className="col" key={index}>
+              <div className="col-1 episodeSwitchContainer" key={index}>
                 <button
-                  className="btn primary-light-bg text-white shadow"
+                  className="btn primary-light-bg text-white shadow-lg"
                   onClick={() => {
                     selectEpisodeHandler(index);
                   }}
