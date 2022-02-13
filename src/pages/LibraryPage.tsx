@@ -1,8 +1,8 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { AllSeriesResponse } from "./../models/SeriesModel";
+import Status from "./../components/Status";
 import SeriesCard from "./../components/SeriesCard";
-import './../style/LibraryPage.scss';
-
+import "./../style/LibraryPage.scss";
 
 const LibraryPage = () => {
   // state variables
@@ -11,18 +11,24 @@ const LibraryPage = () => {
     Dispatch<SetStateAction<AllSeriesResponse>>
   ] = useState(null);
   const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // fetch all serieses
   const fetchAllSerieses = async () => {
     try {
+      setIsLoading(true);
       const apiURL = process.env.REACT_APP_API;
       const fetchUrl = `${apiURL}/series/all`;
       const res = await fetch(fetchUrl);
       const seriesResObj = (await res.json()) as Promise<AllSeriesResponse>;
+      setIsLoading(false);
       return seriesResObj;
     } catch (error) {
-      console.error(error);
+      setIsLoading(false);
       setIsError(true);
+      setErrorMessage("Could not access the server!");
+      console.error(error);
       return null;
     }
   };
@@ -30,64 +36,47 @@ const LibraryPage = () => {
   // onMount
   useEffect(() => {
     fetchAllSerieses().then((seriesRes) => {
+      // handle error
+      if (seriesRes.status.success === false) {
+        setIsError(true);
+        setErrorMessage(seriesRes.status.message);
+      }
       setAllSeriesRes(seriesRes);
     });
   }, []);
 
-  const renderLibrary = () => {
-    const loadingTemplate = (
-      <div className="container-fluid  h-100 d-flex align-items-center justify-content-center">
+  return (
+    <div className="h-100 mt-3">
+      <div className="container-fluid">
         <div className="row">
-          <div className="col">
-            <p>Loading...</p>
+          <div className="col d-flex justify-content-center text-center">
+            <Status isError={isError} isLoading={isLoading} />
           </div>
         </div>
       </div>
-    );
-
-    const errorTemplate = (
-      <div className="container-fluid  h-100 d-flex align-items-center justify-content-center">
-        <div className="row">
-          <div className="col">
-            <p>Could not load because an error has occured.</p>
+      <div className="container-fluid seriesContainer">
+        {(isError === false && isLoading === false && allSeriesRes !== null) && allSeriesRes.result.length === 0 && (
+          <div className="row">
+            <div className="col d-flex justify-content-center">
+              <p className="text-warning">Library empty, nothing was uploaded yet!</p>
+            </div>
           </div>
-        </div>
-      </div>
-    );
-
-    const emptyTemplate = (
-      <div className="container-fluid  h-100 d-flex align-items-center justify-content-center">
-        <div className="row">
-          <div className="col">
-            <p>Nothing is uploaded yet.</p>
-          </div>
-        </div>
-      </div>
-    );
-
-    // conditionally render templates
-    if (allSeriesRes === null && isError === false) {
-      return loadingTemplate;
-    } else if (isError) {
-      return errorTemplate;
-    } else if (allSeriesRes.result.length === 0) {
-      return emptyTemplate;
-    } else {
-      return (
-        <div className="container-fluid seriesContainer">
+        )}
+        {(allSeriesRes !== null && allSeriesRes.result.length > 0) && (
           <div className="row">
             {allSeriesRes.result.map((series, index) => (
-              <div className="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 mb-5 p-xxl-3 p-md-2 p-sm-4 p-5" key={index}>
+              <div
+                className="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 mb-5 p-xxl-3 p-md-2 p-sm-4 p-5"
+                key={index}
+              >
                 <SeriesCard series={series} />
               </div>
             ))}
           </div>
-        </div>
-      );
-    }
-  };
-
-  return <div className="h-100 mt-3">{renderLibrary()}</div>;
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default LibraryPage;

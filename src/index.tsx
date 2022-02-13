@@ -7,6 +7,7 @@ import "./style/global.scss";
 import "./style/customStyle.scss";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 ReactDOM.render(
   <React.StrictMode>
