@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { UserInfoResponse } from "./../models/UserModel";
+import md5 from "md5";
 
 const Login = (props: {
   userName: string;
@@ -36,7 +37,7 @@ const Login = (props: {
               placeholder="password"
               value={props.userPassword}
               onChange={(event) => {
-                props.setUserPassword(event.target.value);
+                props.setUserPassword(md5(event.target.value));
               }}
             />
           </div>
