@@ -100,6 +100,7 @@ const HomePage = () => {
         setUserInfoRes(userInfoRes);
         setUserName("");
         setUserPassword("");
+        setIsError(false);
       }
     } catch (error) {
       setIsLoading(false);
@@ -119,6 +120,7 @@ const HomePage = () => {
       // on successful logout, reset 'setUserInfoRes'
       else {
         setUserInfoRes(null);
+        setIsError(false);
       }
     } catch (error) {
       setIsLoading(false);
