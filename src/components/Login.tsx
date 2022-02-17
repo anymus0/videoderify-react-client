@@ -55,7 +55,9 @@ const Login = (props: {
     if (
       props.userInfoResponse === null ||
       props.userInfoResponse.status.details ===
-        "Authorization cookie is missing!"
+        "Authorization cookie is missing!" ||
+      props.userInfoResponse.status.message === "Could not authenticate!"
+        
     ) {
       return loginFormTemplate;
     } else if (props.userInfoResponse.status.success === false) {
