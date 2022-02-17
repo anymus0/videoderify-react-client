@@ -62,7 +62,7 @@ const LibraryPage = () => {
             </div>
           </div>
         )}
-        {(allSeriesRes !== null && allSeriesRes.result.length > 0) && (
+        {(!isError && allSeriesRes !== null && allSeriesRes.result.length > 0) && (
           <div className="row">
             {allSeriesRes.result.map((series, index) => (
               <div

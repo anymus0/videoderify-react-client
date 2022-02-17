@@ -57,11 +57,8 @@ const Login = (props: {
       props.userInfoResponse.status.details ===
         "Authorization cookie is missing!" ||
       props.userInfoResponse.status.message === "Could not authenticate!"
-        
     ) {
       return loginFormTemplate;
-    } else if (props.userInfoResponse.status.success === false) {
-      <p className="text-danger">{props.userInfoResponse.status.details}</p>;
     } else {
       return (
         <div>

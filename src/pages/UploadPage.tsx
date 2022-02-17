@@ -2,11 +2,13 @@ import { useState, Dispatch, SetStateAction } from "react";
 import { SeriesResponse } from "./../models/SeriesModel";
 import UploadSeriesForm from "./../components/UploadSeriesForm";
 import Status from "./../components/Status";
+import { UserInfoResponse } from "./../models/UserModel";
 
 const UploadPage = () => {
   // state variables
   const [isUploading, setIsUploading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [seriesName, setSeriesName]: [
     string,
     Dispatch<SetStateAction<string>>
@@ -48,16 +50,39 @@ const UploadPage = () => {
     }
   };
 
+  const getLoggedInUser = async () => {
+    try {
+      const apiURL = process.env.REACT_APP_API;
+      const fetchUrl = `${apiURL}/user/getAuthenticatedUser`;
+      const res = await fetch(fetchUrl, {
+        method: "GET",
+        credentials: "include",
+      });
+      const userInfoResObj = (await res.json()) as Promise<UserInfoResponse>;
+      return userInfoResObj;
+    } catch (error) {
+      setIsError(true);
+      console.error(error);
+      return null;
+    }
+  };
+
   const uploadHandler = async () => {
     try {
       setIsUploading(true);
+      // get logged-in user
+      const loggedInUserRes = await getLoggedInUser();
+      if (!loggedInUserRes.status.success) {
+        setIsError(true);
+        setErrorMessage(loggedInUserRes.status.message);
+      }
       // create & populate form
       const formData = new FormData();
       formData.append("name", seriesName);
       formData.append("description", seriesDescription);
       formData.append("thumb", seriesThumb);
       // TODO: read userId from redux
-      formData.append("userId", "61e2b9b0650a5bf6e3ea7ad1");
+      formData.append("userId", loggedInUserRes.result._id);
 
       // add files to the form data
       for (let index = 0; index < seriesFiles.length; index++) {
