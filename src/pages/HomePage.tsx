@@ -1,4 +1,5 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import md5 from "md5";
 import { Link } from "react-router-dom";
 import Login from "./../components/Login";
 import { UserInfoResponse } from "./../models/UserModel";
@@ -50,7 +51,7 @@ const HomePage = () => {
         credentials: "include",
         body: JSON.stringify({
           userName: userName,
-          userPassword: userPassword,
+          userPassword: md5(userPassword),
         }),
       });
       const loginInfoResObj = (await res.json()) as Promise<UserInfoResponse>;
