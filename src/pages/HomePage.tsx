@@ -1,5 +1,5 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
-import md5 from "md5";
+import sha256 from './../sha256'
 import { Link } from "react-router-dom";
 import Login from "./../components/Login";
 import { UserInfoResponse } from "./../models/UserModel";
@@ -39,7 +39,8 @@ const HomePage = () => {
   };
 
   const fetchLogin = async () => {
-    try {
+    try {      
+      // create a SHA256 hash from userPassword
       setIsLoading(true);
       const apiURL = process.env.REACT_APP_API;
       const fetchUrl = `${apiURL}/user/login`;
@@ -51,7 +52,7 @@ const HomePage = () => {
         credentials: "include",
         body: JSON.stringify({
           userName: userName,
-          userPassword: md5(userPassword),
+          userPassword: await sha256(userPassword),
         }),
       });
       const loginInfoResObj = (await res.json()) as Promise<UserInfoResponse>;

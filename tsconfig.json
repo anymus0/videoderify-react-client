@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "strictNullChecks": false,
+    "downlevelIteration": true,
     "target": "es5",
     "lib": [
       "dom",
