@@ -4,7 +4,7 @@ import { SeriesResponse } from "./../models/SeriesModel";
 import { DefaultResponseStatus } from "./../models/ResponseStatus";
 import Status from "./../components/Status";
 import VideoPlayer from "./../components/VideoPlayer";
-import { Comment } from "./../models/CommentModel";
+import { CommentResponse, Comment } from "./../models/CommentModel";
 import CommentComp from "./../components/Comment";
 import CommentForm from "./../components/CommentForm";
 import { UserInfoResponse, UserInfo } from "./../models/UserModel";
@@ -56,6 +56,28 @@ const EpisodesPage = () => {
       });
       const userInfoResObj = (await res.json()) as Promise<UserInfoResponse>;
       return userInfoResObj;
+    } catch (error) {
+      console.error(error);
+      setIsError(true);
+      return null;
+    }
+  };
+
+  const addCommentFetch = async (text: string) => {
+    try {
+      const apiURL = process.env.REACT_APP_API;
+      const fetchUrl = `${apiURL}/comment/addComment/${seriesId}`;
+      const res = await fetch(fetchUrl, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ text: text })
+      });
+      const addCommentResObj = (await res.json()) as Promise<CommentResponse>;
+      return addCommentResObj;
     } catch (error) {
       console.error(error);
       setIsError(true);
@@ -135,7 +157,16 @@ const EpisodesPage = () => {
     setSelectedEpisode(seriesRes.result.mediaFiles[episode].filename);
   };
 
-  const addCommentHandler = async () => {
+  const addCommentHandler = async (commentText: string) => {
+    const addedCommentRes = await addCommentFetch(commentText);
+    if (addedCommentRes.status.success) {
+      const modifiedComments: Comment[] = [];
+      comments.forEach(comment => {
+        modifiedComments.push(comment)
+      });
+      modifiedComments.push(addedCommentRes.result);
+      setComments(modifiedComments);
+    }
     // TODO: toast notifs
   };
 
@@ -199,7 +230,9 @@ const EpisodesPage = () => {
               </div>
             ))}
           </div>
-          <CommentForm />
+          <CommentForm
+            addCommentHandler={addCommentHandler}
+          />
           <div className="row">
             {comments.map((comment, index) => (
               <div className="col-12 my-2" key={index}>
