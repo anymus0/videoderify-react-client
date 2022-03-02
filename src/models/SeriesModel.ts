@@ -1,6 +1,6 @@
-import ResponseStatus from './ResponseStatus';
-import User from './UserModel';
-
+import ResponseStatus from "./ResponseStatus";
+import User from "./UserModel";
+import { Comment } from "./CommentModel";
 
 interface mediaFile {
   mimetype: string;
@@ -9,12 +9,13 @@ interface mediaFile {
 }
 
 export interface Series {
-  _id: string,
+  _id: string;
   name: string;
   description: string;
   thumb: string;
   mediaFiles: mediaFile[];
   uploadedBy: User;
+  comments: Comment[];
 }
 
 export interface SeriesResponse {

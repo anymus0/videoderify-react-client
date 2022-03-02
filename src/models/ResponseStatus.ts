@@ -4,4 +4,9 @@ interface ResponseStatus {
   details: string | null;
 }
 
+export interface DefaultResponseStatus {
+  status: ResponseStatus;
+  result: null;
+}
+
 export default ResponseStatus;
