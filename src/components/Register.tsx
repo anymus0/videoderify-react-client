@@ -1,29 +1,30 @@
 import { Dispatch, SetStateAction } from "react";
 import { UserInfoResponse } from "./../models/UserModel";
 
-const Login = (props: {
+const Register = (props: {
   userName: string;
   userPassword: string;
+  userPasswordConfirm: string;
   setUserName: Dispatch<SetStateAction<string>>;
   setUserPassword: Dispatch<SetStateAction<string>>;
+  setUserPasswordConfirm: Dispatch<SetStateAction<string>>;
   userInfoResponse: UserInfoResponse;
-  loginHandler: () => Promise<void>;
-  logoutHandler: () => Promise<void>;
+  registerHandler: () => Promise<void>;
 }) => {
-  const renderLogin = () => {
-    const loginFormTemplate = (
+  const renderRegister = () => {
+    const RegisterFormTemplate = (
       <div className="container-fluid">
         <div className="row">
           <div className="col">
-            <h2 className="secondary-light-text">Login</h2>
+            <h2 className="secondary-light-text">Register</h2>
           </div>
         </div>
         <div className="row">
-          <div className="col-6">
+          <div className="col-lg-4 col-md-12 col-12">
             <input
               type="text"
-              name="userName"
-              id="userName"
+              name="userNameRegister"
+              id="userNameRegister"
               className="form-control p-2 m-3"
               placeholder="username"
               onChange={(event) => {
@@ -31,11 +32,11 @@ const Login = (props: {
               }}
             />
           </div>
-          <div className="col-6">
+          <div className="col-lg-4 col-md-12 col-12">
             <input
               type="password"
-              name="userPassword"
-              id="userPassword"
+              name="userPasswordRegister"
+              id="userPasswordRegister"
               className="form-control p-2 m-3"
               placeholder="password"
               onChange={(event) => {
@@ -43,13 +44,30 @@ const Login = (props: {
               }}
             />
           </div>
+          <div className="col-lg-4 col-md-12 col-12">
+            <input
+              type="password"
+              name="userPasswordConfirmRegister"
+              id="userPasswordConfirmRegister"
+              className="form-control p-2 m-3"
+              placeholder="confirm password"
+              onChange={(event) => {
+                props.setUserPasswordConfirm(event.target.value);
+              }}
+            />
+          </div>
           <div className="col-12">
             <button
               className="btn secondary-light-bg text-white m-3"
-              onClick={props.loginHandler}
-              disabled={props.userName === "" || props.userPassword === ""}
+              onClick={props.registerHandler}
+              disabled={
+                props.userPassword !== props.userPasswordConfirm ||
+                props.userName === "" ||
+                props.userPassword === "" ||
+                props.userPasswordConfirm === ""
+              }
             >
-              Login
+              Register
             </button>
           </div>
         </div>
@@ -62,28 +80,11 @@ const Login = (props: {
         "Authorization cookie is missing!" ||
       props.userInfoResponse.status.message === "Could not authenticate!"
     ) {
-      return loginFormTemplate;
-    } else {
-      return (
-        <div>
-          <div className="bg-success p-1 m-4 rounded-3 shadow-lg">
-            <span>
-              You are logged in as:{" "}
-              <strong>{props.userInfoResponse.result.userName}</strong>
-            </span>
-          </div>
-          <button
-            className="btn secondary-light-bg text-white"
-            onClick={props.logoutHandler}
-          >
-            Logout
-          </button>
-        </div>
-      );
+      return RegisterFormTemplate;
     }
   };
 
-  return <div>{renderLogin()}</div>;
+  return <div>{renderRegister()}</div>;
 };
 
-export default Login;
+export default Register;

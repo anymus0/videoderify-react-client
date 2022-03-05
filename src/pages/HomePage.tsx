@@ -1,11 +1,11 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
-import sha256 from './../sha256'
+import sha256 from "./../sha256";
 import { Link } from "react-router-dom";
-import Login from "./../components/Login";
+import Login from "../components/Login";
+import Register from "./../components/Register";
 import { UserInfoResponse } from "./../models/UserModel";
 import Status from "./../components/Status";
-import './../style/HomePage.scss';
-
+import "./../style/HomePage.scss";
 
 const HomePage = () => {
   const [isError, setIsError] = useState(false);
@@ -13,6 +13,7 @@ const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [userPasswordConfirm, setUserPasswordConfirm] = useState("");
   const [userInfoRes, setUserInfoRes]: [
     UserInfoResponse,
     Dispatch<SetStateAction<UserInfoResponse>>
@@ -39,7 +40,7 @@ const HomePage = () => {
   };
 
   const fetchLogin = async () => {
-    try {      
+    try {
       // create a SHA256 hash from userPassword
       setIsLoading(true);
       const apiURL = process.env.REACT_APP_API;
@@ -80,6 +81,32 @@ const HomePage = () => {
       const logoutInfoResObj = (await res.json()) as Promise<UserInfoResponse>;
       setIsLoading(false);
       return logoutInfoResObj;
+    } catch (error) {
+      setIsLoading(false);
+      setIsError(true);
+      console.error(error);
+    }
+  };
+
+  const fetchRegister = async () => {
+    try {
+      setIsLoading(true);
+      const apiURL = process.env.REACT_APP_API;
+      const fetchUrl = `${apiURL}/user/addUser`;
+      const res = await fetch(fetchUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userName: userName,
+          userPassword: await sha256(userPassword),
+          userPasswordConfirm: await sha256(userPasswordConfirm),
+        }),
+      });
+      const registerResObj = (await res.json()) as Promise<UserInfoResponse>;
+      setIsLoading(false);
+      return registerResObj;
     } catch (error) {
       setIsLoading(false);
       setIsError(true);
@@ -130,6 +157,35 @@ const HomePage = () => {
     }
   };
 
+  const registerHandler = async () => {
+    try {
+      const registerResObj = await fetchRegister();
+      // server error handling
+      if (registerResObj.status.success === false) {
+        setIsError(true);
+        setErrorMessage(registerResObj.status.details);
+      }
+      // on successful register, reset inputs
+      else {
+        setUserName("");
+        setUserPassword("");
+        setUserPasswordConfirm("");
+        setIsError(false);
+        // reset register form
+        const userNameRegisterEl: HTMLInputElement = document.querySelector("#userNameRegister");
+        const userPasswordRegisterEl: HTMLInputElement = document.querySelector("#userPasswordRegister");
+        const userPasswordConfirmRegisterEl: HTMLInputElement = document.querySelector("#userPasswordConfirmRegister");
+        userNameRegisterEl.value = "";
+        userPasswordRegisterEl.value = "";
+        userPasswordConfirmRegisterEl.value = "";
+      }
+    } catch (error) {
+      setIsLoading(false);
+      setIsError(true);
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getLoggedInUser().then((userInfoResObj) => {
       setUserInfoRes(userInfoResObj);
@@ -163,6 +219,16 @@ const HomePage = () => {
                 loginHandler={loginHandler}
                 logoutHandler={logoutHandler}
               ></Login>
+              <Register
+                userName={userName}
+                userPassword={userPassword}
+                userPasswordConfirm={userPasswordConfirm}
+                setUserName={setUserName}
+                setUserPassword={setUserPassword}
+                setUserPasswordConfirm={setUserPasswordConfirm}
+                userInfoResponse={userInfoRes}
+                registerHandler={registerHandler}
+              ></Register>
               <p className="h4 mt-3">
                 Or you can just browse from the library:
               </p>
