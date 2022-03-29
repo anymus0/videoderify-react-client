@@ -1,5 +1,9 @@
 Hungarian documentation: https://docs.google.com/document/d/1gM2D4UT4Nmsp2_NNMkDKA_SSPEygwGvw/edit?usp=sharing&ouid=109008074089397749737&rtpof=true&sd=true
 
+DEMO: https://videoderify.lagooncompany.xyz/
+username: admin
+password: asd
+
 # Env variables
 You can see the set of env variables in `.env`, provide your own details in it. 
 <br> `.env` should never expose any secrets, api keys, etc...!
