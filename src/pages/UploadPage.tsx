@@ -69,10 +69,12 @@ const UploadPage = () => {
 
   const uploadHandler = async () => {
     try {
+      setIsError(false);
       setIsUploading(true);
       // get logged-in user
       const loggedInUserRes = await getLoggedInUser();
       if (!loggedInUserRes.status.success) {
+        setIsUploading(false);
         setIsError(true);
         setErrorMessage(loggedInUserRes.status.message);
       }
@@ -81,12 +83,21 @@ const UploadPage = () => {
       formData.append("name", seriesName);
       formData.append("description", seriesDescription);
       formData.append("thumb", seriesThumb);
-      // TODO: read userId from redux
       formData.append("userId", loggedInUserRes.result._id);
 
       // add files to the form data
       for (let index = 0; index < seriesFiles.length; index++) {
         const file = seriesFiles[index];
+        // check MIME type
+        const fileTypes = /ogg|mp4/;
+        const extname = fileTypes.test(file.name);
+        if (!extname) {
+          setIsUploading(false);
+          setIsError(true);
+          setErrorMessage("Only files with 'mp4' or 'ogg' extension are allowed!");
+          throw "Wrong file extension!";
+        }
+        // append file to form data
         formData.append("Files", file, file.name);
       }
 
@@ -97,8 +108,6 @@ const UploadPage = () => {
         !uploadSeriesResponseObj.status.success
       )
         throw uploadSeriesResponseObj.status;
-
-      console.log(uploadSeriesResponseObj.result);
 
       // clear inputs & form
       setSeriesName("");
@@ -136,7 +145,7 @@ const UploadPage = () => {
               />
             </div>
             <div className="col-12 text-center">
-              <Status isLoading={isUploading} isError={isError} />
+              <Status isLoading={isUploading} isError={isError} errorMessage={errorMessage} />
             </div>
           </div>
         </div>
