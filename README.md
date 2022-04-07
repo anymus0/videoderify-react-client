@@ -1,4 +1,4 @@
-Hungarian documentation: https://docs.google.com/document/d/1gM2D4UT4Nmsp2_NNMkDKA_SSPEygwGvw/edit?usp=sharing&ouid=109008074089397749737&rtpof=true&sd=true
+Hungarian documentation: https://drive.google.com/file/d/1_KPTgzFjyA9JBjZcLUcxQ7k0oJYiuBWE/view?usp=sharing
 
 DEMO: https://videoderify.lagooncompany.xyz/
 username: admin
