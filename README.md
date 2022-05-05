@@ -1,10 +1,17 @@
-Hungarian documentation: https://drive.google.com/file/d/1_KPTgzFjyA9JBjZcLUcxQ7k0oJYiuBWE/view?usp=sharing
+# videoderify client
+This is the front-end client for my video sharing platform: Videoderify
 
-DEMO: https://videoderify.lagooncompany.xyz/
-username: admin
-password: asd
+## Hungarian documents:
+- Hungarian documents can be found in the `zd_Dokumentumok` directory.
 
-# Env variables
+## Demo:
+https://videoderify.lagooncompany.xyz/<br>
+username: admin<br>
+password: asd<br>
+
+You can find the [API here](https://github.com/anymus0/videoderify-API)!
+
+# Environment variables
 You can see the set of env variables in `.env`, provide your own details in it. 
 <br> `.env` should never expose any secrets, api keys, etc...!
 <br> An env variable should start with the `REACT_APP_` prefix.
